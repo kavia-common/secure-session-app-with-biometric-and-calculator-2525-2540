@@ -1,0 +1,4 @@
+{
+    "command": "./gradlew test",
+    "working_directory": "/home/kavia/workspace/code-generation/secure-session-app-with-biometric-and-calculator-2525-2540/ios_frontend"
+}
