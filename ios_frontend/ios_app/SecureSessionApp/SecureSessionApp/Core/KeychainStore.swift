@@ -16,13 +16,12 @@ final class KeychainStore {
 
     // PUBLIC_INTERFACE
     func setString(_ value: String, for key: Key) throws {
-        """Store a string securely in Keychain.
-        
-        - Parameters:
-          - value: String to store.
-          - key: Key identifier.
-        - Throws: AppError.keychain on failure.
-        """
+        // Store a string securely in Keychain.
+        //
+        // - Parameters:
+        //   - value: String to store.
+        //   - key: Key identifier.
+        // - Throws: AppError.keychain on failure.
         guard let data = value.data(using: .utf8) else {
             throw AppError.keychain("Failed to encode string.")
         }
@@ -48,12 +47,11 @@ final class KeychainStore {
 
     // PUBLIC_INTERFACE
     func getString(for key: Key) throws -> String? {
-        """Retrieve a string from Keychain.
-        
-        - Parameter key: Key identifier.
-        - Returns: Stored string or nil if not found.
-        - Throws: AppError.keychain on unexpected Keychain failures.
-        """
+        // Retrieve a string from Keychain.
+        //
+        // - Parameter key: Key identifier.
+        // - Returns: Stored string or nil if not found.
+        // - Throws: AppError.keychain on unexpected Keychain failures.
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
@@ -81,11 +79,10 @@ final class KeychainStore {
 
     // PUBLIC_INTERFACE
     func remove(_ key: Key) throws {
-        """Remove an entry from Keychain.
-        
-        - Parameter key: Key identifier.
-        - Throws: AppError.keychain on failure.
-        """
+        // Remove an entry from Keychain.
+        //
+        // - Parameter key: Key identifier.
+        // - Throws: AppError.keychain on failure.
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
@@ -100,7 +97,7 @@ final class KeychainStore {
 
     // PUBLIC_INTERFACE
     func removeAll() throws {
-        """Remove all app entries from Keychain for this service."""
+        // Remove all app entries from Keychain for this service.
         for key in [Key.accessToken, .refreshToken, .accessTokenExpiry] {
             try remove(key)
         }

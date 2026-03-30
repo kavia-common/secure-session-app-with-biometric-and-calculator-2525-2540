@@ -8,13 +8,12 @@ final class BiometricAuthManager {
 
     // PUBLIC_INTERFACE
     func authenticate(reason: String) async throws {
-        """Authenticate the user with biometrics, falling back to device passcode if needed.
-        
-        Uses `LAContext` with `.deviceOwnerAuthentication` so the system can fall back to passcode.
-        
-        - Parameter reason: The localized reason shown in the system prompt.
-        - Throws: AppError.biometricUnavailable or AppError.biometricFailed.
-        """
+        // Authenticate the user with biometrics, falling back to device passcode if needed.
+        //
+        // Uses `LAContext` with `.deviceOwnerAuthentication` so the system can fall back to passcode.
+        //
+        // - Parameter reason: The localized reason shown in the system prompt.
+        // - Throws: AppError.biometricUnavailable or AppError.biometricFailed.
         let context = LAContext()
         context.localizedCancelTitle = "Cancel"
 

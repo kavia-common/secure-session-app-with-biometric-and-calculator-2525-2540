@@ -68,12 +68,11 @@ final class AuthAPI {
 
     // PUBLIC_INTERFACE
     func login(email: String, password: String) async throws -> TokenPair {
-        """Log in and return a new token pair.
-
-        Calls FastAPI:
-        - POST /auth/login { "username": "<email>", "password": "<password>" }
-        - Returns TokenPair where `accessTokenExpiresAt = now + access_token_expires_in`.
-        """
+        // Log in and return a new token pair.
+        //
+        // Calls FastAPI:
+        // - POST /auth/login { "username": "<email>", "password": "<password>" }
+        // - Returns TokenPair where `accessTokenExpiresAt = now + access_token_expires_in`.
         let url = APIConfig.baseURL.appendingPathComponent("/auth/login")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -94,12 +93,11 @@ final class AuthAPI {
 
     // PUBLIC_INTERFACE
     func refresh(refreshToken: String) async throws -> TokenPair {
-        """Refresh tokens using a refresh token.
-
-        Calls FastAPI:
-        - POST /auth/refresh { "refresh_token": "<token>" }
-        - Returns a new access token and (rotated) refresh token.
-        """
+        // Refresh tokens using a refresh token.
+        //
+        // Calls FastAPI:
+        // - POST /auth/refresh { "refresh_token": "<token>" }
+        // - Returns a new access token and (rotated) refresh token.
         let url = APIConfig.baseURL.appendingPathComponent("/auth/refresh")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -119,11 +117,10 @@ final class AuthAPI {
 
     // PUBLIC_INTERFACE
     func logout(refreshToken: String?) async {
-        """Logout and invalidate refresh token on backend (best-effort).
-
-        Calls FastAPI:
-        - POST /auth/logout { "refresh_token": "<token>" } -> 204
-        """
+        // Logout and invalidate refresh token on backend (best-effort).
+        //
+        // Calls FastAPI:
+        // - POST /auth/logout { "refresh_token": "<token>" } -> 204
         guard let refreshToken else { return }
 
         let url = APIConfig.baseURL.appendingPathComponent("/auth/logout")
@@ -137,11 +134,10 @@ final class AuthAPI {
 
     // PUBLIC_INTERFACE
     func me(accessToken: String) async throws -> MeResponse {
-        """Fetch the current user from the backend.
-
-        Calls FastAPI:
-        - GET /me (Authorization: Bearer <access_token>)
-        """
+        // Fetch the current user from the backend.
+        //
+        // Calls FastAPI:
+        // - GET /me (Authorization: Bearer <access_token>)
         let url = APIConfig.baseURL.appendingPathComponent("/me")
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

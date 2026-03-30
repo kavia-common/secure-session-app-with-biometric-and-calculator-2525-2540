@@ -9,22 +9,21 @@ final class AppLockManager: ObservableObject {
 
     // PUBLIC_INTERFACE
     func lock() {
-        """Lock the app UI until the user authenticates."""
+        // Lock the app UI until the user authenticates.
         isLocked = true
     }
 
     // PUBLIC_INTERFACE
     func unlockWithoutPrompt() {
-        """Unlock the app UI without prompting for biometrics.
-        
-        Used after logout when protected content is no longer visible.
-        """
+        // Unlock the app UI without prompting for biometrics.
+        //
+        // Used after logout when protected content is no longer visible.
         isLocked = false
     }
 
     // PUBLIC_INTERFACE
     func unlock() async {
-        """Attempt to unlock using biometrics/passcode."""
+        // Attempt to unlock using biometrics/passcode.
         guard isLocked else { return }
         do {
             try await BiometricAuthManager.shared.authenticate(reason: "Unlock to continue.")
@@ -37,10 +36,9 @@ final class AppLockManager: ObservableObject {
 
     // PUBLIC_INTERFACE
     func lockAndRequireAuthIfNeeded() async {
-        """Lock and then request authentication if app-lock is enabled.
-        
-        Called when returning to foreground.
-        """
+        // Lock and then request authentication if app-lock is enabled.
+        //
+        // Called when returning to foreground.
         guard isAppLockEnabled else {
             isLocked = false
             return

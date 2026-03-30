@@ -12,10 +12,9 @@ final class SessionManager: ObservableObject {
 
     // PUBLIC_INTERFACE
     func restoreFromKeychainIfPossible() async {
-        """Restore tokens from Keychain and mark session as authenticated if valid.
-        
-        If access token is expired, attempts a refresh automatically.
-        """
+        // Restore tokens from Keychain and mark session as authenticated if valid.
+        //
+        // If access token is expired, attempts a refresh automatically.
         do {
             let access = try keychain.getString(for: .accessToken)
             let refresh = try keychain.getString(for: .refreshToken)
@@ -52,7 +51,7 @@ final class SessionManager: ObservableObject {
 
     // PUBLIC_INTERFACE
     func login(email: String, password: String) async throws {
-        """Log in with email/password and persist session securely."""
+        // Log in with email/password and persist session securely.
         let tokens = try await AuthAPI.shared.login(email: email, password: password)
         try persist(tokens: tokens)
         apply(tokens: tokens)
@@ -61,10 +60,9 @@ final class SessionManager: ObservableObject {
 
     // PUBLIC_INTERFACE
     func authorizedRequestToken() async throws -> String {
-        """Return a valid access token, refreshing if needed.
-        
-        - Throws: AppError.notAuthenticated / AppError.refreshFailed
-        """
+        // Return a valid access token, refreshing if needed.
+        //
+        // - Throws: AppError.notAuthenticated / AppError.refreshFailed
         guard isAuthenticated else {
             throw AppError.notAuthenticated
         }
@@ -77,7 +75,7 @@ final class SessionManager: ObservableObject {
 
     // PUBLIC_INTERFACE
     func logout() async {
-        """Logout, invalidate session (best-effort), and clear Keychain."""
+        // Logout, invalidate session (best-effort), and clear Keychain.
         let currentRefresh = refreshToken
         await AuthAPI.shared.logout(refreshToken: currentRefresh)
         await clearSession()
