@@ -78,8 +78,8 @@ final class SessionManager: ObservableObject {
     // PUBLIC_INTERFACE
     func logout() async {
         """Logout, invalidate session (best-effort), and clear Keychain."""
-        let currentAccess = accessToken
-        await AuthAPI.shared.logout(accessToken: currentAccess)
+        let currentRefresh = refreshToken
+        await AuthAPI.shared.logout(refreshToken: currentRefresh)
         await clearSession()
     }
 

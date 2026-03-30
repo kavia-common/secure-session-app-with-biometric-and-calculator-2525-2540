@@ -22,21 +22,19 @@ To run the iOS app:
 5. Ensure `Info.plist` contains `NSFaceIDUsageDescription` (provided here).
 6. Build and run on a simulator/device.
 
-## Mock login
+## Using the real backend (FastAPI preview on port 3001)
 
-By default, `APIConfig.baseURL` is `nil`, and the app uses an in-memory mock backend:
+This app is wired to the real FastAPI auth endpoints:
 
-- Email: anything (non-empty)
-- Password: `password`
+- `POST /auth/login`
+- `POST /auth/refresh`
+- `POST /auth/logout`
+- `GET /me`
 
-The mock access token expires quickly (60 seconds) so you can observe refresh behavior.
+By default, `APIConfig.baseURL` is set to:
 
-## Using a real backend
+- `http://localhost:3001` (works in **iOS Simulator**)
 
-If you have real endpoints, set `APIConfig.baseURL` to your backend base URL and implement endpoints matching the sample paths in `AuthAPI`:
-
-- `POST /auth/login` → `TokenPair`
-- `POST /auth/refresh` → `TokenPair`
-- `POST /auth/logout` (best-effort)
-
-> Note: The included backend OpenAPI in this workspace currently only shows `/` health check, so the iOS app ships with a mock auth service by default.
+Notes:
+- On a **physical device**, `localhost` points to the phone. Use your machine’s LAN IP or a tunnel URL and update `APIConfig.baseURL`.
+- The app keeps secure Keychain storage and performs automatic token refresh when the access token expires.
