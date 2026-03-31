@@ -6,30 +6,44 @@ struct AppLockOverlayView: View {
     let unlockAction: () -> Void
 
     var body: some View {
-        VStack(spacing: 14) {
-            Image(systemName: "lock.fill")
-                .font(.system(size: 44, weight: .bold))
-                .foregroundStyle(.blue)
+        ZStack {
+            // Dimmed scrim behind the card (matches typical Android "modal overlay" feel).
+            AndroidRefTheme.textPrimary
+                .opacity(0.20)
+                .ignoresSafeArea()
 
-            Text(title)
-                .font(.title2.bold())
+            // Centered "card" using the same card container as Login/Home.
+            AndroidRefCard {
+                VStack(alignment: .center, spacing: 10) {
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: 28, weight: .semibold))
+                        .foregroundStyle(AndroidRefTheme.primary)
+                        .padding(.top, 2)
 
-            Text(message)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
+                    Text(title)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(AndroidRefTheme.textPrimary)
+                        .multilineTextAlignment(.center)
 
-            Button(action: unlockAction) {
-                Text("Unlock")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .padding()
+                    Text(message)
+                        .font(.system(size: 12, weight: .regular))
+                        .foregroundStyle(AndroidRefTheme.textSecondary)
+                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.top, 2)
+
+                    Button(action: unlockAction) {
+                        Text("Unlock")
+                    }
+                    .buttonStyle(AndroidRefPrimaryButtonStyle())
+                    .padding(.top, 6)
+                    .accessibilityLabel("Unlock app")
+                }
             }
-            .buttonStyle(.borderedProminent)
+            .frame(maxWidth: 360)
+            .padding(.horizontal, AndroidRefTheme.outerHPadding)
         }
-        .padding()
-        .frame(maxWidth: 360)
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 18))
-        .padding()
+        .accessibilityElement(children: .contain)
+        .accessibilityAddTraits(.isModal)
     }
 }
