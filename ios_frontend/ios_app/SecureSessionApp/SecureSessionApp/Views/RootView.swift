@@ -22,7 +22,7 @@ struct RootView: View {
             if session.isAuthenticated, appLock.isLocked {
                 AppLockOverlayView(
                     title: "App Locked",
-                    message: "Authenticate to continue.",
+                    message: "Use Face ID, Touch ID, or your device passcode to continue.",
                     unlockAction: {
                         Task { await appLock.unlock() }
                     }

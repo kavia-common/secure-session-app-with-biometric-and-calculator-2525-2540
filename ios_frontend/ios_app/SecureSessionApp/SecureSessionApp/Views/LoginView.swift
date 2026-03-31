@@ -16,11 +16,11 @@ struct LoginView: View {
             VStack(alignment: .leading, spacing: 12) {
                 // Title block (top-left)
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("Sample Declarative Gradle Android App")
+                    Text("Secure Session")
                         .font(.system(size: 20, weight: .bold))
                         .foregroundStyle(AndroidRefTheme.textPrimary)
 
-                    Text("This app is for demonstrating declarative gradle ...")
+                    Text("Sign in to continue. Your session is stored securely and protected with Face ID / Touch ID (or device passcode).")
                         .font(.system(size: 12, weight: .regular))
                         .foregroundStyle(AndroidRefTheme.textSecondary)
                         .fixedSize(horizontal: false, vertical: true)
@@ -28,7 +28,7 @@ struct LoginView: View {
                 .padding(.top, 12)
 
                 // Auth state label line
-                Text("Auth state: LoggedOut")
+                Text("Status: Signed out")
                     .font(.system(size: 12, weight: .regular))
                     .foregroundStyle(AndroidRefTheme.textSecondary)
                     .padding(.top, 2)
@@ -37,16 +37,16 @@ struct LoginView: View {
                 AndroidRefCard {
                     VStack(alignment: .leading, spacing: 10) {
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("Login")
+                            Text("Sign In")
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundStyle(AndroidRefTheme.textPrimary)
-                            Text("(mocked: any username/password)")
+                            Text("Enter any email and password (demo).")
                                 .font(.system(size: 12))
                                 .foregroundStyle(AndroidRefTheme.textSecondary)
                         }
 
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("Username (any)")
+                            Text("Email")
                                 .font(.system(size: 12))
                                 .foregroundStyle(AndroidRefTheme.textSecondary)
 
@@ -60,7 +60,7 @@ struct LoginView: View {
                         .padding(.top, 2)
 
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("Password (mock)")
+                            Text("Password")
                                 .font(.system(size: 12))
                                 .foregroundStyle(AndroidRefTheme.textSecondary)
 
@@ -93,7 +93,7 @@ struct LoginView: View {
                         }
                         .padding(.top, 2)
 
-                        Text("Logged out. Use any username/password.")
+                        Text("Demo mode: any email and password will work.")
                             .font(.system(size: 12))
                             .foregroundStyle(AndroidRefTheme.textSecondary)
                             .padding(.top, 2)
@@ -113,10 +113,10 @@ struct LoginView: View {
                                     ProgressView()
                                         .progressViewStyle(.circular)
                                         .tint(.white)
-                                    Text("Login")
+                                    Text("Sign In")
                                 }
                             } else {
-                                Text("Login")
+                                Text("Sign In")
                             }
                         }
                         .buttonStyle(AndroidRefPrimaryButtonStyle(isDisabled: isLoginDisabled))
@@ -127,14 +127,13 @@ struct LoginView: View {
                 .padding(.top, 2)
 
                 // Session actions section
-                Text("Session actions")
+                Text("Security")
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundStyle(AndroidRefTheme.textPrimary)
                     .padding(.top, 8)
 
                 HStack(spacing: 8) {
-                    Button("Lock") {
-                        // For demo parity with Android reference "session actions"
+                    Button("Lock App") {
                         if session.isAuthenticated {
                             appLock.lock()
                         }
@@ -151,7 +150,6 @@ struct LoginView: View {
                     .disabled(!session.isAuthenticated)
 
                     Button("Clear") {
-                        // Clear fields locally (matches "clear" utility behavior in reference)
                         email = ""
                         password = ""
                         errorMessage = nil
@@ -161,18 +159,17 @@ struct LoginView: View {
                 .padding(.top, 2)
 
                 Button {
-                    // Not implemented in this sample UI: keep button for layout parity.
-                    // (The app still uses /me internally when needed; this is just a demo action.)
+                    // Not implemented in this demo UI: kept for layout parity.
                 } label: {
-                    Text("Call protected endpoint")
+                    Text("Fetch Account Info")
                 }
                 .buttonStyle(AndroidRefPrimaryButtonStyle())
                 .padding(.top, 6)
 
                 Button {
-                    // Another demo action for parity with the reference screenshot.
+                    // Not implemented in this demo UI: kept for layout parity.
                 } label: {
-                    Text("Another protected action")
+                    Text("Test Protected Action")
                 }
                 .buttonStyle(AndroidRefPrimaryButtonStyle())
                 .padding(.top, 2)

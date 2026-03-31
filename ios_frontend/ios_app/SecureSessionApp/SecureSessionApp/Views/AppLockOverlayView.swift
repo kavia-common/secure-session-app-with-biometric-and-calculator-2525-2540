@@ -33,7 +33,7 @@ struct AppLockOverlayView: View {
                         .padding(.top, 2)
 
                     Button(action: unlockAction) {
-                        Text("Unlock")
+                        Text("Unlock App")
                     }
                     .buttonStyle(AndroidRefPrimaryButtonStyle())
                     .padding(.top, 6)

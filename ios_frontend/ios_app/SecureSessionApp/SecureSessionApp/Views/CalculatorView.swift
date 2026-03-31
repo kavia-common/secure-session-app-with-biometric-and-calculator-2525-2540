@@ -13,7 +13,7 @@ struct CalculatorView: View {
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundStyle(AndroidRefTheme.textPrimary)
 
-                        Text("Your session is active. You can use the calculator below.")
+                        Text("Your session is active. Use the calculator below.")
                             .font(.system(size: 12))
                             .foregroundStyle(AndroidRefTheme.textSecondary)
                     }
